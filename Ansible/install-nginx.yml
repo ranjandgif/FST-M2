@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+      notify: start nginx
+
+  handlers:
+    - name: start nginx
+      systemd:
+        name: nginx
+        state: started
+        enabled: true  # Optional: ensures nginx starts on boot
